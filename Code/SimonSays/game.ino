@@ -23,6 +23,9 @@ void playGame() {
       if (!nosound) {
         gameOverSound();
       }
+      else {
+        delay(1000);
+      }
       showSimonSaysLogo();
       if (!nosound) {
         introSound();
@@ -68,8 +71,8 @@ bool checkSolution(String solution, int initialSpeedHigh, int initialSpeedLow)
         pressed = true;
       }
     }
-    showColor(checkColor);
     if (checkColor == currentColor) {
+      showColor(checkColor);
       if (!nosound) {
         correctBeep();
       }
@@ -91,7 +94,6 @@ bool checkSolution(String solution, int initialSpeedHigh, int initialSpeedLow)
         showCorrect();
     } else {
       showColor("");
-      showWrong();
       success = false;
       break;
     }

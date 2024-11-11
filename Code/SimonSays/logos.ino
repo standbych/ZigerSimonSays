@@ -11,7 +11,6 @@ void showGameOver(int points)    {
   display.print(points);
   display.print(" points");
   display.display();
-  delay(1000);
 }
 void showCorrect()    {
   display.clearDisplay();

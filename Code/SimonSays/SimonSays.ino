@@ -40,10 +40,11 @@ void setup() {
   pinMode(startButtonPin, INPUT_PULLUP);
 
   digitalWrite(redLedPin, HIGH);
-  delay(100);
   display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS);
+  display.clearDisplay();
   display.display();
   display.setTextColor(SSD1306_WHITE, SSD1306_BLACK);
+  delay(100);
   digitalWrite(greenLedPin, HIGH);
   delay(100);
   digitalWrite(blueLedPin, HIGH);
