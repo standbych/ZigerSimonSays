@@ -11,7 +11,6 @@ void showGameOver(int points)    {
   display.print(points);
   display.print(" points");
   display.display();
-  delay(1000);
 }
 void showCorrect()    {
   display.clearDisplay();
@@ -77,6 +76,23 @@ void showHighscore()    {
   display.display();
   delay(1000);
 }
+void showProgress(int current, int max) {
+  display.clearDisplay();
+  display.setCursor(0, 0);
+  display.setTextSize(1);
+  display.println("         MiZ");
+  display.println(".-=-.-=-.-=-.-=-.-=-.");
+  display.setCursor(0, 16);
+  display.setTextSize(2);
+  if (max > 9)
+    display.print(" ");
+  else
+    display.print("  ");
+  display.print(current);
+  display.print(" / ");
+  display.println(max);
+  display.display();
+}
 void showPressStart()    {
   display.clearDisplay();
   display.setCursor(0, 16);
@@ -91,11 +107,11 @@ void showPressColor(String c)    {
   display.setTextSize(3);
   String cLoc = "";
   if (c == "r") {
-    cLoc = "red";
+    cLoc = "  red";
   } else   if (c == "g") {
-    cLoc = "green";
+    cLoc = " green";
   } else   if (c == "b") {
-    cLoc = "blue";
+    cLoc = " blue";
   } else   if (c == "y") {
     cLoc = "yellow";
   }

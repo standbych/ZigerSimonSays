@@ -13,16 +13,18 @@ void playGame() {
     playSequence(solution, initialSpeedHigh, initialSpeedLow);
     if (!checkSolution(solution, initialSpeedHigh, initialSpeedLow)) {
       gameOver = true;
-      long score = solution.length();
+      int score = solution.length() - 1;
       showGameOver(score);
       if (score > highscore) {
         highscore = score;
         EEPROM.put(0, score);
       }
 
-
       if (!nosound) {
         gameOverSound();
+      }
+      else {
+        delay(1000);
       }
       showSimonSaysLogo();
       if (!nosound) {
@@ -38,32 +40,25 @@ void playSequence(String solution, int initialSpeedHigh, int initialSpeedLow) {
   delay(200);
   for (int i = 0; i < solution.length() ; i++) {
     String currentColor = String(solution[i]);
-    if (currentColor == "r") {
-      digitalWrite(redLedPin, HIGH);
-    } else if (currentColor == "g") {
-      digitalWrite(greenLedPin, HIGH);
-    } else if (currentColor == "b") {
-      digitalWrite(blueLedPin, HIGH);
-    } else if (currentColor == "y") {
-      digitalWrite(yellowLedPin, HIGH);
-    }
+    showColor(currentColor);
     showPressColor(currentColor);
     delay(initialSpeedHigh);
-    if (currentColor == "r") {
-      digitalWrite(redLedPin, LOW);
-    } else if (currentColor == "g") {
-      digitalWrite(greenLedPin, LOW);
-    } else if (currentColor == "b") {
-      digitalWrite(blueLedPin, LOW);
-    } else if (currentColor == "y") {
-      digitalWrite(yellowLedPin, LOW);
-    }
+    showColor("");
     display.clearDisplay();
     display.display();
     delay(initialSpeedLow);
   }
 }
-bool checkSolution(String solution, int initialSpeedHigh, int initialSpeedLow) {
+void showColor(String color)
+{
+  if (color == "r") digitalWrite(redLedPin, HIGH); else digitalWrite(redLedPin, LOW);
+  if (color == "g") digitalWrite(greenLedPin, HIGH); else digitalWrite(greenLedPin, LOW);
+  if (color == "b") digitalWrite(blueLedPin, HIGH); else digitalWrite(blueLedPin, LOW);
+  if (color == "y") digitalWrite(yellowLedPin, HIGH); else digitalWrite(yellowLedPin, LOW);
+}
+
+bool checkSolution(String solution, int initialSpeedHigh, int initialSpeedLow)
+{
   showPlayerSaysLogo(0);
   bool success = true;
   for (int i = 0; i < solution.length() ; i++) {
@@ -77,31 +72,39 @@ bool checkSolution(String solution, int initialSpeedHigh, int initialSpeedLow) {
       }
     }
     if (checkColor == currentColor) {
+      showColor(checkColor);
       if (!nosound) {
         correctBeep();
       }
-      showCorrect();
+
+    showProgress(i + 1, solution.length());
+
+    while (pressed) {
+      checkColor = checkPress();
+      if (checkColor == "x") {
+        pressed = false;
+      }
+    }
+    showColor("");
+
       if (solution.length() != i + 1) {
         showPlayerSaysLogo(0);
       }
+      else
+        showCorrect();
     } else {
-      showWrong();
+      showColor("");
       success = false;
       break;
     }
   }
   return success;
 }
-String checkPress() {
-  if (digitalRead(redButtonPin) == LOW) {
-    return "r";
-  } else if (digitalRead(greenButtonPin) == LOW) {
-    return "g";
-  } else if (digitalRead(blueButtonPin) == LOW) {
-    return "b";
-  } else if (digitalRead(yellowButtonPin) == LOW) {
-    return "y";
-  } else {
-    return "x";
-  }
+String checkPress()
+{
+  if (digitalRead(redButtonPin) == LOW) return "r";
+  if (digitalRead(greenButtonPin) == LOW) return "g";
+  if (digitalRead(blueButtonPin) == LOW) return "b";
+  if (digitalRead(yellowButtonPin) == LOW) return "y";
+  return "x";
 }
