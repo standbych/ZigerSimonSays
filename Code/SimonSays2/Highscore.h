@@ -7,7 +7,7 @@ class Highscore {
 public:
   // Statische Methoden zum Abrufen und Setzen des Highscores
   static int get();
-  static void set(int highscore, bool force);
+  static void set(int highscore);
 };
 
 #endif  // HIGHSCORE_H
