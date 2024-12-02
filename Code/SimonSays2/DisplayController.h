@@ -18,8 +18,8 @@ public:
   static void showTextXXL(const char* line1, const char* line2);
 
 private:
-  static U8GLIB_SSD1306_128X64 display_u8g;  // Display-Objekt (statisch)
-  static int display_currentPosition;        // Aktuelle Position für Textanzeige (statisch)
+  static U8GLIB_SSD1306_128X64 u8g;  // Display-Objekt (statisch)
+  static int currentPosition;        // Aktuelle Position für Textanzeige (statisch)
 
   // Funktionen zum Schreiben von Texten mit verschiedenen Schriftgrößen
   static void writeLineS(const char* text);
