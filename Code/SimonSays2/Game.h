@@ -4,13 +4,9 @@
 #include <Arduino.h>
 #include "ButtonHandler.h"
 #include "Highscore.h"
+#include "LedMatrix.h"
 #include "DisplayController.h"
 #include "Buzzer.h"
-
-#define LED_BLUE_PIN A0
-#define LED_YELLOW_PIN 9
-#define LED_RED_PIN 5
-#define LED_GREEN_PIN 6
 
 enum GameColor {
   COLOR_NONE,

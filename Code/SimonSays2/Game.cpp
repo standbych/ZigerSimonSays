@@ -4,10 +4,6 @@ Game::Game() {
 }
 
 void Game::setup() {
-  pinMode(LED_BLUE_PIN, OUTPUT);
-  pinMode(LED_YELLOW_PIN, OUTPUT);
-  pinMode(LED_RED_PIN, OUTPUT);
-  pinMode(LED_GREEN_PIN, OUTPUT);
 
   if (ButtonHandler::isButtonPressed(BUTTON_BLUE)) {
     DisplayController::showTextS("Delete Highscore?", nullptr, "release button", nullptr, nullptr);
@@ -83,24 +79,20 @@ GameColor Game::parseColor(char c) {
   return COLOR_NONE;
 }
 void Game::displayColor(GameColor color, bool showOnDisplay) {
-  digitalWrite(LED_BLUE_PIN, LOW);
-  digitalWrite(LED_YELLOW_PIN, LOW);
-  digitalWrite(LED_RED_PIN, LOW);
-  digitalWrite(LED_GREEN_PIN, LOW);
-
   if (color == COLOR_RED) {
-    digitalWrite(LED_RED_PIN, HIGH);
+    LedMatrix::showX();
     if (showOnDisplay) DisplayController::showTextXL("  red", nullptr);
   } else if (color == COLOR_GREEN) {
-    digitalWrite(LED_GREEN_PIN, HIGH);
+    LedMatrix::showSquare();
     if (showOnDisplay) DisplayController::showTextXL(" green", nullptr);
   } else if (color == COLOR_BLUE) {
-    digitalWrite(LED_BLUE_PIN, HIGH);
+    LedMatrix::showCircle();
     if (showOnDisplay) DisplayController::showTextXL("  blue", nullptr);
   } else if (color == COLOR_YELLOW) {
-    digitalWrite(LED_YELLOW_PIN, HIGH);
+    LedMatrix::showArrow();
     if (showOnDisplay) DisplayController::showTextXL(" yellow", nullptr);
   } else {
+    LedMatrix::clear();
     if (showOnDisplay) DisplayController::showTextXL(nullptr, nullptr);
   }
 }

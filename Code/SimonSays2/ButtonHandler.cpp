@@ -9,11 +9,11 @@ volatile Button ButtonHandler::buttons_play_button = BUTTON_COUNT;  // Invalid i
 // Pin definitions using enum indices
 const int ButtonHandler::BUTTON_PINS[BUTTON_COUNT] = {
   2,  // BUTTON_BLUE
-  8,  // BUTTON_YELLOW
-  3,  // BUTTON_RED
-  7,  // BUTTON_GREEN
-  0,  // BUTTON_SELECT
-  4   // BUTTON_START
+  3,  // BUTTON_YELLOW
+  4,  // BUTTON_RED
+  5,  // BUTTON_GREEN
+  6,  // BUTTON_SELECT
+  7   // BUTTON_START
 };
 
 // Constants for debounce delay
@@ -30,7 +30,7 @@ void ButtonHandler::setup() {
     pinMode(BUTTON_PINS[i], INPUT_PULLUP);  // Set up each button pin
     buttons_state[i] = digitalRead(BUTTON_PINS[i]) == LOW;
     if (BUTTON_PINS[i] == 8) {
-      PCMSK0 |= (1 << PCINT0); // Maskiere Pin 8 (PCINT0 fÃ¼r Pin 8)
+      PCMSK0 |= (1 << PCINT0); // Maskiere Pin 8 (PCINT0 für Pin 8)
       enablePortB = true;
     }
     else {
