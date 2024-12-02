@@ -11,7 +11,7 @@ void Game::setup() {
     DisplayController::showTextS("Delete Highscore?", nullptr, "Yes  Press Red", "No   any other button", nullptr);
     Button pressed = ButtonHandler::getPressedButton();
     if (pressed == BUTTON_RED) {
-      Highscore::set(0, true);
+      Highscore::set(0);
     }
   }
 
@@ -46,8 +46,10 @@ void Game::play() {
     if (!checkSolution(solution))
       break;
 
-    if (solution.length() > currentHighscore)
+    if (solution.length() > currentHighscore) {
       DisplayController::showTextL("  correct", nullptr, "HIGHSCORE !!");
+      Highscore::set(solution.length() - 1);
+    }
     else
       DisplayController::showTextXL(" correct", nullptr);
     delay(2000);
@@ -57,7 +59,6 @@ void Game::play() {
 
   int score = solution.length() - 1;
   DisplayController::showTextL(" Game Over", (" Score: " + String(score)).c_str(), nullptr);
-  Highscore::set(score, false);
 
   delay(1000);
 }

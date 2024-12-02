@@ -11,8 +11,6 @@ int Highscore::get() {
 }
 
 // Statische Methode zum Setzen des Highscores
-void Highscore::set(int highscore, bool force) {
-  if (force || highscore > Highscore::get()) {
-    EEPROM.put(0, highscore);
-  }
+void Highscore::set(int highscore) {
+  EEPROM.put(0, highscore);
 }
